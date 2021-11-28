@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
 
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="favicon.png"/>
     <title>User Page</title>
 
 
@@ -25,14 +24,12 @@
 </nav>
 
 
-<!-- Боковая панель -->
-<div class="container-fluid"><!-- создания контейнера полной ширины, занимающий 100% зоны просмотра-->
-    <div class="row vh-100"><!-- создаем ряды -->
+<div class="container-fluid">
+    <div class="row vh-100">
         <div class="col mt-3 pl-0 bg-white">
-            <!-- создаем столбец с 0-м отступом слева pl-0 и верхний оступ mt-3 (3 rem или 48px), с белым фоном -->
-            <ul class="nav nav-pills flex-column"><!-- вертикальная навигация flex-column с "подушечками" -->
+            <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a href="/admin" class="nav-link active">Admin</a><!-- указываем активную ссылку (синий цвет)-->
+                    <a href="/admin" class="nav-link active">Admin</a>
                 </li>
                 <li class="nav-item">
                     <a href="/user" class="nav-link">User</a>
@@ -43,7 +40,7 @@
         <!-- Админ панель с вкладками -->
         <div class="col-10 bg-light">
             <div><h3>Admin panel</h3></div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist"> <!-- создание "вкладочного" интерфейса -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="admin-tab" data-toggle="tab" href="#admin" role="tab"
                        aria-controls="admin" aria-selected="true">User table</a>
@@ -115,7 +112,7 @@
                                                         </label>
                                                         <input type="text"
                                                                class="form-control collection-ville text-left"
-                                                               id="editFirstName" name="firstName"
+                                                               id="editFirstName" name="firstname"
                                                                th:value="${user.firstname}">
                                                     </div>
                                                     <div class="form-group text-center">
@@ -124,7 +121,7 @@
                                                         </label>
                                                         <input type="text"
                                                                class="form-control collection-ville text-left"
-                                                               id="editLastName" name="lastName"
+                                                               id="editLastName" name="lastname"
                                                                th:value="${user.lastname}">
                                                     </div>
                                                     <div class="form-group text-center">
@@ -156,13 +153,13 @@
                                                     <div class="form-group text-left">
                                                         <b><label for="editRoles">Roles</label></b>
                                                         <br>
-                                                        <select class="form-control" multiple name="editRoles"
+                                                        <select class="form-control" multiple name="updateRoles"
                                                                 id="editRoles" size="2" required>
                                                             <option
 
-                                                                    th:each="role : ${allUsers}"
-                                                                    th:action="${role.getRoles()}"
-                                                                    th:text="${role.roles}"> >
+                                                                    th:each="user : ${allUsers}"
+                                                                    th:action="${user.getRoles()}"
+                                                                    th:text="${user.roles}"> >
 
                                                             </option>
                                                         </select>
@@ -218,17 +215,17 @@
                                                         </label>
                                                         <input type="text"
                                                                class="form-control collection-ville text-left"
-                                                               id="deleteFirstName" name="firstName"
+                                                               id="deleteFirstName" name="First Name"
                                                                th:value="${user.firstname}"
                                                                readonly="readonly">
                                                     </div>
                                                     <div class="form-group text-center">
                                                         <label for="deleteLastName" class="center-block">
-                                                            <span class="font-weight-bold">Last name</span>
+                                                            <span class="font-weight-bold">Last Name</span>
                                                         </label>
                                                         <input type="text"
                                                                class="form-control collection-ville text-left"
-                                                               id="deleteLastName" name="lastName"
+                                                               id="deleteLastName" name="Last Name"
                                                                th:value="${user.lastname}"
                                                                readonly="readonly">
                                                     </div>
@@ -238,7 +235,8 @@
                                                         </label>
                                                         <input type="text"
                                                                class="form-control collection-ville text-left"
-                                                               id="deleteAge" name="Age" th:value="${user.age}"
+                                                               id="deleteAge" name="Age"
+                                                               th:value="${user.age}"
                                                                readonly="readonly">
                                                     </div>
                                                     <div class="form-group text-center">
@@ -268,9 +266,9 @@
                                                                 id="deleteRoles" size="2" required
                                                                 readonly="readonly">
                                                             <option
-                                                                    th:each="role : ${allUsers}"
-                                                                    th:action="${role.getRoles()}"
-                                                                    th:text="${role.roles}">
+                                                                    th:each="role : ${allRoles}"
+                                                                    th:action="${role.getRole()}"
+                                                                    th:text="${role.role}">
 
                                                             </option>
                                                         </select>
@@ -305,19 +303,21 @@
                                               align="center">
 
                                             <div class="form-group">
-                                                <label for="firstName" class=" font-weight-bold">First Name</label>
-                                                <input type="text" name="firstName" class="form-control"
-                                                       id="firstName"
+                                                <label for="firstname" class=" font-weight-bold">First Name</label>
+                                                <input type="text" name="firstname" class="form-control"
+                                                       id="firstname"
                                                        placeholder="Enter your first name" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="lastName" class=" font-weight-bold">Last Name</label>
-                                                <input type="text" name="lastName" class="form-control" id="lastName"
+                                                <label for="lastname" class=" font-weight-bold">Last Name</label>
+                                                <input type="text" name="lastname" class="form-control"
+                                                       id="lastname"
                                                        placeholder="Enter your last name" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="age" class=" font-weight-bold">Age</label>
-                                                <input type="text" name="age" class="form-control" id="age"
+                                                <input type="text" name="age" class="form-control"
+                                                       id="age"
                                                        placeholder="Enter your age" required>
                                             </div>
                                             <div class="form-group">
@@ -337,8 +337,8 @@
                                                         name="newRoles"
                                                         multiple="multiple" required>
                                                     <option
-                                                            th:each="role : ${allUsers}"
-                                                            th:text="${role.roles}">
+                                                            th:each="role : ${allRoles}"
+                                                            th:text="${role.role}">
                                                     </option>
                                                 </select>
                                             </div>

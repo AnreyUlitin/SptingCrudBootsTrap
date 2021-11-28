@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -24,17 +23,12 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @Override
     public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
-    @Override
-    public User getUser(Long id) {
-        return userRepository.getById(id);
-    }
 
     @Override
     public void updateUser(User user) {
@@ -49,15 +43,20 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-
     @Override
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public User getUserByname(String username) {
+    public User getByUsername(String username) {
         return userRepository.getByUsername(username);
+    }
+
+
+    @Override
+    public User getUser(Long id) {
+        return userRepository.getById(id);
     }
 
     @Override
@@ -66,3 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
 }
+
+
+
+

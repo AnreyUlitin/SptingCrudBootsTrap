@@ -15,12 +15,11 @@ public interface UserService {
 
     Optional<User> getUserById(Long id);
 
-    User getUserByname(String username);
+    User getByUsername(String username);
 
     User getUser(Long id);
 
     List<User> getAllUsers();
 
 }
-
 

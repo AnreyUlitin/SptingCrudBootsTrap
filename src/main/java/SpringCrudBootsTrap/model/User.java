@@ -1,14 +1,24 @@
 package SpringCrudBootsTrap.model;
 
 
-import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.*;
-import org.hibernate.annotations.*;
-import org.springframework.security.core.*;
-import org.springframework.security.core.userdetails.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.Collection;
+import java.util.Set;
+
 
 
 @Entity
@@ -20,12 +30,6 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", unique = true)
-    private String username;
-
-    @Column(name = "password")
-    private String password;
-
    @Column(name = "first_name")
     private String firstname;
 
@@ -33,30 +37,32 @@ public class User implements UserDetails {
     private String lastname;
 
    @Column(name = "age")
-   private String age;
+   private int age;
 
-    @Column(name = "e_mail")
-    private String email;
+    @Column(name = "email")
+    private String username;
+
+        @Column(name = "password")
+    private String password;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @Fetch(FetchMode.JOIN)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+
     private Set<Role> roles;
 
     public User() {
     }
 
-
-    public User(String username, String password, String firstname, String lastname, String age, String email) {
-        this.username = username;
-        this.password = password;
+    public User(String firstname, String lastname, int age, String username, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.age = age;
-        this.email = email;
-
+        this.username = username;
+        this.password = password;
     }
+
 
     public Long getId() {
         return id;
@@ -64,6 +70,30 @@ public class User implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -84,38 +114,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -128,12 +126,12 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", age='" + age + '\'' +
-                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 
@@ -163,5 +161,4 @@ public class User implements UserDetails {
     }
 
 }
-
 
