@@ -37,7 +37,6 @@
             </ul>
         </div>
 
-        <!-- Админ панель с вкладками -->
         <div class="col-10 bg-light">
             <div><h3>Admin panel</h3></div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -96,6 +95,7 @@
                                                         <span aria-hidden="true">x</span>
                                                     </button>
                                                 </div>
+
                                                 <div class="modal-body">
                                                     <div class="form-group text-center">
                                                         <label for="editId" class="center-block">
@@ -106,6 +106,7 @@
                                                                id="editId" name="ID" th:value="${user.id}"
                                                                readonly="readonly">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="editFirstName" class="center-block">
                                                             <span class="font-weight-bold">First Name</span>
@@ -115,6 +116,7 @@
                                                                id="editFirstName" name="firstname"
                                                                th:value="${user.firstname}">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="editLastName" class="center-block">
                                                             <span class="font-weight-bold">Last name</span>
@@ -124,6 +126,7 @@
                                                                id="editLastName" name="lastname"
                                                                th:value="${user.lastname}">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="editAge" class="center-block">
                                                             <span class="font-weight-bold">Age</span>
@@ -132,6 +135,7 @@
                                                                class="form-control collection-ville text-left"
                                                                id="editAge" name="Age" th:value="${user.age}">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="editUsername" class="center-block">
                                                             <span class="font-weight-bold">E-mail</span>
@@ -141,6 +145,7 @@
                                                                id="editUsername" name="Username"
                                                                th:value="${user.username}">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="editPassword" class="center-block">
                                                             <span class="font-weight-bold">Password</span>
@@ -150,20 +155,23 @@
                                                                id="editPassword" name="Password"
                                                                th:value="${user.password}">
                                                     </div>
+
                                                     <div class="form-group text-left">
-                                                        <b><label for="editRoles">Roles</label></b>
+                                                        <b><label for="boxRoles">Roles</label></b>
                                                         <br>
-                                                        <select class="form-control" multiple name="updateRoles"
-                                                                id="editRoles" size="2" required>
+                                                        <select class="form-control" multiple name="boxRoles"
+                                                                id="boxRoles" size="2" required>
                                                             <option
 
-                                                                    th:each="user : ${allUsers}"
-                                                                    th:action="${user.getRoles()}"
-                                                                    th:text="${user.roles}"> >
+                                                                    th:each="role : ${allRoles}"
+                                                                    th:action="${role.getRole()}"
+                                                                    th:text="${role.role}"> >
 
                                                             </option>
                                                         </select>
                                                     </div>
+
+
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close
@@ -199,6 +207,7 @@
                                                         <span aria-hidden="true">x</span>
                                                     </button>
                                                 </div>
+
                                                 <div class="modal-body">
                                                     <div class="form-group text-center">
                                                         <label for="deleteId" class="center-block">
@@ -209,6 +218,7 @@
                                                                id="deleteId" name="ID" th:value="${user.id}"
                                                                readonly="readonly">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="deleteFirstName" class="center-block">
                                                             <span class="font-weight-bold">First Name</span>
@@ -219,6 +229,7 @@
                                                                th:value="${user.firstname}"
                                                                readonly="readonly">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="deleteLastName" class="center-block">
                                                             <span class="font-weight-bold">Last Name</span>
@@ -229,6 +240,7 @@
                                                                th:value="${user.lastname}"
                                                                readonly="readonly">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="deleteAge" class="center-block">
                                                             <span class="font-weight-bold">Age</span>
@@ -239,6 +251,7 @@
                                                                th:value="${user.age}"
                                                                readonly="readonly">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="deleteUsername" class="center-block">
                                                             <span class="font-weight-bold">E-mail</span>
@@ -249,6 +262,7 @@
                                                                th:value="${user.username}"
                                                                readonly="readonly">
                                                     </div>
+
                                                     <div class="form-group text-center">
                                                         <label for="deletePassword" class="center-block">
                                                             <span class="font-weight-bold">Password</span>
@@ -259,6 +273,7 @@
                                                                th:value="${user.password}"
                                                                readonly="readonly">
                                                     </div>
+
                                                     <div class="form-group text-left">
                                                         <b><label for="deleteRoles">Roles</label></b>
                                                         <br>
@@ -308,38 +323,46 @@
                                                        id="firstname"
                                                        placeholder="Enter your first name" required>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="lastname" class=" font-weight-bold">Last Name</label>
                                                 <input type="text" name="lastname" class="form-control"
                                                        id="lastname"
                                                        placeholder="Enter your last name" required>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="age" class=" font-weight-bold">Age</label>
                                                 <input type="text" name="age" class="form-control"
                                                        id="age"
                                                        placeholder="Enter your age" required>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="username" class=" font-weight-bold">E-mail</label>
                                                 <input type="text" name="username" class="form-control" id="username"
                                                        placeholder="Enter your e-mail" required>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="password" class=" font-weight-bold">Password</label>
                                                 <input type="password" name="password" class="form-control"
                                                        id="password"
                                                        placeholder="Enter your password" required>
                                             </div>
+
                                             <div>
-                                                <label for="roles" class=" font-weight-bold">Roles:</label>
+                                                <label for="boxRoles" class=" font-weight-bold">Roles:</label>
                                                 <select class="form-control custom-select" size="2" id="roles"
-                                                        name="newRoles"
+                                                        name="boxRoles"
                                                         multiple="multiple" required>
                                                     <option
-                                                            th:each="role : ${allRoles}"
-                                                            th:text="${role.role}">
+                                                            th:each="roles : ${allRoles}"
+                                                            th:action="${roles.getRole()}"
+                                                            th:text="${roles.role}">
+
                                                     </option>
+
                                                 </select>
                                             </div>
                                             <br>

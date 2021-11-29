@@ -34,6 +34,7 @@ public class UserController {
     @GetMapping("/user")
     public String userInfoPages(@AuthenticationPrincipal User user, Model model) {
         System.out.println("/user_1");
+        System.out.println(user.getRoles());
         model.addAttribute("user", user);
         System.out.println("/user_2");
         model.addAttribute("roles", user.getRoles());
@@ -43,17 +44,14 @@ public class UserController {
 
     @GetMapping(value = "/admin")
     public String listAllUsers(@AuthenticationPrincipal User user, Role role, Model model) {
-
         System.out.println("/admin_1");
         model.addAttribute("user", user);
         System.out.println("/admin_2");
-
         model.addAttribute("allUsers", userService.getAllUsers());
         System.out.println("/admin_3");
-
         model.addAttribute("allRoles", roleService.getAllRoles());
-
         System.out.println("/admin_4");
+        System.out.println(user.getRoles());
         return "admin";
     }
 
@@ -67,8 +65,6 @@ public class UserController {
 
     @PostMapping("/admin/create")
     public String createUser(@ModelAttribute User user, @RequestParam(defaultValue = "boxRoles") String[] boxRoles) {
-
-        System.out.println(user.getRoles());
         Set<Role> roleSet = new HashSet<>();
         System.out.println("/admin/create_1");
         for (String role : boxRoles) {
@@ -79,8 +75,10 @@ public class UserController {
         System.out.println("/admin/create_4");
         user.setRoles(roleSet);
         System.out.println("/admin/create_5");
+        System.out.println(user.getRoles());
         userService.addUser(user);
         System.out.println("/admin/create_6");
+        System.out.println(user.getRoles());
         return "redirect:/admin";
     }
 
@@ -97,24 +95,21 @@ public class UserController {
     }
 
     @PutMapping(value = "/edit/{id}")
-    public String update(@ModelAttribute User user, @RequestParam(defaultValue = "updateRoles") String[] updateRoles) {
+    public String update(@ModelAttribute User user, @RequestParam(defaultValue = "updateRoles") String[] boxRoles) {
         System.out.println("/edit_1");
         Set<Role> roleSet = new HashSet<>();
         System.out.println("/edit_2");
-        for (String roles : updateRoles) {
+        for (String roles : boxRoles) {
             roleSet.add(roleService.getRoleByRole(roles));
             System.out.println("/edit_3");
-
         }
         user.setRoles(roleSet);
         System.out.println("/edit_4");
-
         userService.updateUser(user);
         System.out.println("/edit_5");
-
+        System.out.println(user.getRoles());
         return "redirect:/admin";
     }
-
 
     @DeleteMapping("delete/{id}")
     public String delete(@PathVariable Long id) {
@@ -124,6 +119,11 @@ public class UserController {
     }
 
 }
+
+
+
+
+
 
 
 
